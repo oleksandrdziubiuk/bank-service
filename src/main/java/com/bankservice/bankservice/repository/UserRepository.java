@@ -4,9 +4,11 @@ import com.bankservice.bankservice.model.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query("FROM users u JOIN FETCH u.roles WHERE u.phoneNumber =:phoneNumber")
-    Optional<User> getByPhoneNumber(@Param("phoneNumber") String phoneNumber);
+    Optional<User> getByPhoneNumber(String phoneNumber);
+
+    @Query("FROM users u JOIN FETCH u.roles WHERE u.id =:id")
+    Optional<User> getById(Long id);
 }
